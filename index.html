@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Atlas | Modern SQL Learning</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="schemaCanvas" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="SQL Atlas">
+        <span class="brand-mark">SQL</span>
+        <span>
+          <strong>SQL Atlas</strong>
+          <small data-i18n="tagline">现代 SQL 学习网站</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#syntax" data-i18n="navSyntax">语法库</a>
+        <a href="#roadmap" data-i18n="navRoadmap">路线</a>
+        <a href="#playbook" data-i18n="navPlaybook">实战</a>
+      </nav>
+
+      <div class="language-switch" aria-label="Language">
+        <button class="lang-btn active" data-lang="zh" type="button">中</button>
+        <button class="lang-btn" data-lang="en" type="button">EN</button>
+        <button class="lang-btn" data-lang="fr" type="button">FR</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">SQL 专家级知识地图</p>
+          <h1 data-i18n="heroTitle">从 SELECT 到窗口函数，一站式掌握 SQL。</h1>
+          <p class="hero-text" data-i18n="heroText">
+            基础语法、进阶语法、使用说明和真实业务用例全部放在一个现代化学习界面里。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#syntax" data-i18n="startLearning">开始学习</a>
+            <a class="ghost-action" href="#playbook" data-i18n="openPlaybook">查看实战模板</a>
+          </div>
+        </div>
+
+        <div class="hero-lab" aria-label="SQL query preview">
+          <div class="lab-toolbar">
+            <span></span><span></span><span></span>
+            <strong>query.sql</strong>
+          </div>
+          <pre><code id="heroCode">WITH monthly_revenue AS (
+  SELECT customer_id,
+         DATE_TRUNC('month', paid_at) AS month,
+         SUM(amount) AS revenue
+  FROM payments
+  WHERE status = 'paid'
+  GROUP BY customer_id, DATE_TRUNC('month', paid_at)
+)
+SELECT customer_id,
+       month,
+       revenue,
+       RANK() OVER (PARTITION BY month ORDER BY revenue DESC) AS rank_in_month
+FROM monthly_revenue
+WHERE revenue > 1000;</code></pre>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Learning metrics">
+        <div>
+          <strong id="syntaxCount">0</strong>
+          <span data-i18n="metricSyntax">条核心语法</span>
+        </div>
+        <div>
+          <strong>3</strong>
+          <span data-i18n="metricLang">种语言</span>
+        </div>
+        <div>
+          <strong>ANSI+</strong>
+          <span data-i18n="metricStyle">兼顾主流数据库</span>
+        </div>
+      </section>
+
+      <section class="workspace" id="syntax">
+        <aside class="control-panel">
+          <div class="panel-header">
+            <p data-i18n="libraryLabel">语法库</p>
+            <strong data-i18n="filterTitle">筛选</strong>
+          </div>
+
+          <label class="search-box">
+            <span data-i18n="searchLabel">搜索语法</span>
+            <input id="searchInput" type="search" placeholder="SELECT, JOIN, CTE..." />
+          </label>
+
+          <div class="filter-group">
+            <p data-i18n="levelLabel">难度</p>
+            <div class="segmented" id="levelFilters"></div>
+          </div>
+
+          <div class="filter-group">
+            <p data-i18n="categoryLabel">分类</p>
+            <div class="category-list" id="categoryList"></div>
+          </div>
+        </aside>
+
+        <section class="syntax-stage">
+          <div class="stage-header">
+            <div>
+              <p class="eyebrow" data-i18n="stageEyebrow">基础 + 进阶</p>
+              <h2 data-i18n="stageTitle">SQL 语法全景</h2>
+            </div>
+            <span id="resultCount" class="result-count"></span>
+          </div>
+          <div id="syntaxGrid" class="syntax-grid"></div>
+        </section>
+      </section>
+
+      <section class="roadmap" id="roadmap">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="roadmapEyebrow">学习路线</p>
+          <h2 data-i18n="roadmapTitle">按查询执行顺序理解 SQL</h2>
+        </div>
+        <div class="pipeline" id="pipeline"></div>
+      </section>
+
+      <section class="playbook" id="playbook">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="playbookEyebrow">实战模板</p>
+          <h2 data-i18n="playbookTitle">常见业务问题的 SQL 写法</h2>
+        </div>
+        <div class="playbook-grid" id="playbookGrid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>SQL Atlas</span>
+      <span data-i18n="footerText">为数据分析、后端开发和数据库工程师打造。</span>
+    </footer>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
