@@ -9,3 +9,13 @@ A modern trilingual SQL learning website covering foundational and advanced SQL 
 - Search, level filters, and category filters
 - Query execution order roadmap
 - Business SQL playbook templates
+
+## Live Site
+
+```text
+https://ibobhao.github.io/sql-atlas/
+```
+
+## Copyright
+
+© 2026 Bob Hao. All rights reserved.
